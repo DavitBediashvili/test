@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, flash, request
 import json
 import requests
 h = {"Accept-Language": "en-US"}
@@ -6,6 +6,8 @@ from bs4 import BeautifulSoup
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'zdarova'
+
 
 url1 = "https://www.rottentomatoes.com/browse/movies_at_home/critics:certified_fresh~sort:popular?page=1"
 
@@ -30,26 +32,6 @@ for each in sub_soup2:
     critic = ratings["criticsscore"]
     title = sub_soup4.find("span").text
     rating_dict[title] = f"User Rating: {user} and Critics Rating: {critic}"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -98,8 +80,10 @@ def home(popular_dict=popular_dict, rating_dict=rating_dict):
     return render_template('home.html', popular_dict=popular_dict, rating_dict=rating_dict)
 
 
-@app.route('/now_showing')
-def now_showing():
+@app.route('/now_showing', methods=['POST', 'GET'])
+def review():
+    if request.method == "POST":
+        flash("კომენტარი დამატებულია სიმონ")
     return render_template('now_showing.html')
 
 
@@ -113,9 +97,18 @@ def search_actor():
     return render_template('search_actor.html')
 
 
-@app.route('/profile')
+@app.route('/profile', methods=['POST', 'GET'])
 def profile():
-    return render_template('profile.html')
+    if request.method == "POST":
+        return redirect(url_for('review'))
+
+    else:
+        return render_template('profile.html')
+
+
+@app.route('/logout')
+def logout():
+    return 'რატო გახვედი, დარჩენილიყავი კიდევ ბიჯოო'
 
 
 app.run(debug=True)

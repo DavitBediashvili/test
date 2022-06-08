@@ -1,4 +1,21 @@
 {% extends 'base.html' %}
+
+{%block title%} Movie-Film Review {%endblock%}
+
 {%  block content  %}
-<h1> now_showing page </h1>
+<h1 style="margin-left: 20px"> Films Review </h1>
+<form method="post">
+  <div  style="margin-right: 50%; margin-left: 20px" class="form-floating">
+
+    <textarea name="Comments" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" ></textarea>
+    <label  for="floatingTextarea">Comments</label>
+  </div>
+
+    {% with messages = get_flashed_messages()%}
+      {% for msg in messages%}
+        <p style="margin-left: 20px">{{msg}}</p>
+      {% endfor %}
+    {% endwith %}
+  <button style="margin-left: 20px; margin-top: 10px" type="submit" class="btn btn-primary">Add Comment</button>
+</form>
 {%  endblock  %}
