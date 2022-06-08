@@ -33,26 +33,6 @@ for each in sub_soup2:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 url = 'https://www.swoop.ge/events'
 movies_dict = dict()
 r = requests.get(url)
