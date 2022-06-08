@@ -3,11 +3,16 @@
 {%block title%} Movie-Film Review {%endblock%}
 
 {%  block content  %}
-<h1 style="margin-left: 20px"> Films Review </h1>
+<h1 style="width: 50%; margin-left: 35%; margin-top: 20px">Heyo {{ session['username']}} add some Films Review </h1>
+<!--<h3 style="margin-left: 20px">heyo {{ session['username']}} add comment  </h3>-->
 <form method="post">
-  <div  style="margin-right: 50%; margin-left: 20px" class="form-floating">
 
-    <textarea name="Comments" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" ></textarea>
+  <div  style="margin-left: 25%; width: 50%; margin-top: 20px" class="form-floating">
+    <textarea name="film" class="form-control" placeholder="Leave fil name here" id="floatingTextarea1" ></textarea>
+    <label  for="floatingTextarea1">Film</label>
+  </div>
+  <div  style="width: 50%; margin-left: 25%; margin-top: 20px" class="form-floating">
+    <textarea name="comments" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" ></textarea>
     <label  for="floatingTextarea">Comments</label>
   </div>
 
@@ -16,6 +21,17 @@
         <p style="margin-left: 20px">{{msg}}</p>
       {% endfor %}
     {% endwith %}
-  <button style="margin-left: 20px; margin-top: 10px" type="submit" class="btn btn-primary">Add Comment</button>
+  <button style="width: 10%; margin-left: 45%; margin-top: 20px" type="submit" class="btn btn-primary">Add Comment</button>
+
+
+    {% for each in m1%}
+      <div style="width: 50%; margin-left: 25%; margin-top: 20px" class="card">
+  <div class="card-body">
+      {{each}}
+  </div>
+</div>
+    {% endfor%}
+
+
 </form>
 {%  endblock  %}

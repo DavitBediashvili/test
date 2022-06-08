@@ -1,4 +1,56 @@
 {% extends 'base.html' %}
 {%  block content  %}
-<h1> search_actor page </h1>
+<p></p>
+<form method="post" style="width:60%; margin-left: 20%" >
+    <div class="input-group input-group-lg">
+      <span class="input-group-text" id="inputGroup-sizing-lg">Large</span>
+      <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" name="name">
+      <button type="submit" class="btn btn-primary" style="width: 20%">Submit actor</button>
+    </div>
+    <p></p>
+
+
+</form>
+
+<div class="card mb-3" style="width:60%; margin-left: 20%">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src={{img_link}} class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{actor_name}}</h5>
+          <p></p>
+        <p class="card-text">Highest Rated: {{best_movie}}</p>
+        <p class="card-text">Birth Day: {{birth_day}}</p>
+        <p class="card-text"><small class="text-muted">{{bio}}...</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mb-3" style="width:60%; margin-left: 20%">
+  <div class="row g-0">
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Last Six Movies</h5>
+      </div>
+    </div>
+  </div>
+</div>
+{% for each in rate_dict%}
+<div class="card mb-3" style="width:60%; margin-left: 20%">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src={{img_dict[each]}} class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{each}}</h5>
+        <p class="card-text">AUDIENCE SCORE: {{rate_dict[each]}}</p>
+        <p class="card-text"><small class="text-muted">{{bio_dict[each]}}</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
     {%  endblock  %}
