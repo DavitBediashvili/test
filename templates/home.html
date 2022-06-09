@@ -1,23 +1,26 @@
 {% extends 'base.html' %}
 {%block title%} Movie-Home{%endblock%}
 {%  block content  %}
-<div>
-  <h1 style="color:#000000;">Most Popular Movies </h1>
+    <p></p>
+
+<div class="card" style="width:40%; margin-left: 30%; background: #0c0409">
+  <div class="card-body">
+    <h1 style="color:#bf3f8f;text-align: center" >Most Popular Movies For {{ session['username']}}</h1>
+  </div>
 </div>
-<div>
-  <h2>Heyo {{ session['username']}} </h2>
-</div>
+    <p></p>
+
 {% for each in popular_dict%}
-<div class="card mb-3" style="width:60%; margin-left: 20%">
+<div class="card mb-3" style="width:40%; margin-left: 30%; background: #0c0409">
   <div class="row g-0">
     <div class="col-md-4">
       <img src={{popular_dict[each]}} class="img-fluid rounded-start" alt="...">
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title">{{each}}</h5>
-        <p class="card-text">{{rating_dict[each]}}</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        <h3 class="card-title" style="color: #bf3f8f">{{each}}</h3>
+                  <p></p>
+        <p class="card-text" style="color: #bf3f8f">{{rating_dict[each]}}</p>
       </div>
     </div>
   </div>

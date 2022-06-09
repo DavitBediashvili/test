@@ -56,7 +56,7 @@ for each in sub_soup2:
     user = ratings["audiencescore"]
     critic = ratings["criticsscore"]
     title = sub_soup4.find("span").text
-    rating_dict[title] = f"User Rating: {user} and Critics Rating: {critic}"
+    rating_dict[title] = f"Audience Rating: {user} and Critics Rating: {critic}"
 
 
 #sales

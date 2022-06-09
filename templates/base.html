@@ -6,36 +6,37 @@
     <title style="margin-left: 20px">{%block title%} Udzlieresi site {%endblock%}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
-<body style="background-image: url(img.jpg);">
+<body style="background-image: url(https://giffiles.alphacoders.com/207/207124.gif); background-repeat:repeat">
 
-<nav class="navbar navbar-expand-lg" style="background-color:#369e71;">
+
+<nav class="navbar navbar-expand-lg" style="background-color:#0c0409">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon" style="color: #bf3f8f"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item" >
-          <a class="nav-link active" aria-current="page" href="/" style="color:#0c0ca9;">Home</a>
+          <a class="nav-link active" aria-current="page" href="/" style="color:#bf3f8f; text-align: center">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/now_showing" style="color:#0c0ca9;">Now Showing</a>
+          <a class="nav-link" href="/now_showing" style="color:#bf3f8f; text-align: center">Now Showing</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/sales" style="color:#0c0ca9;">Sales</a>
+          <a class="nav-link" href="/sales" style="color:#bf3f8f; text-align: center">Sales</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/search_actor" style="color:#0c0ca9;">Search Actor</a>
+          <a class="nav-link" href="/search_actor" style="color:#bf3f8f; text-align: center">Search Actor</a>
         </li>
         {% if 'username' not in session %}
           <li class="nav-item">
-            <a class="nav-link" href="/profile" style="color:#0c0ca9;">profile</a>
+            <a class="nav-link" href="/profile" style="color:#bf3f8f; text-align: center">profile</a>
           </li>
         {% endif %}
 
         {% if 'username' in session  %}
-          <li class="nav-item" style="margin-left: 1030px">
-            <a class="nav-link" href="/logout" style="color:#0c0ca9;">Logout</a>
+          <li class="nav-item" style="margin-left: 1090px">
+            <a class="nav-link" href="/logout" style="color:#bf3f8f; text-align: center">Logout</a>
           </li>
         {% endif %}
 
