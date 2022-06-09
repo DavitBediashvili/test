@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template, flash, request, session
+from flask import Flask, redirect, url_for, render_template, flash, request, session, abort
 import json
 import requests
 h = {"Accept-Language": "en-US"}
@@ -145,7 +145,7 @@ def search_actor():
         sub_soup = soup.find('div', id="main-page-content")
         sub_soup2 = sub_soup.find('div', {'class': 'layout celebrity'})
         if sub_soup2 == None:
-            pass
+            return abort(404, "we could not find actor")
         else:
             sub_soup3 = sub_soup2.find('a')
             sub_soup4 = sub_soup3.find('img')
