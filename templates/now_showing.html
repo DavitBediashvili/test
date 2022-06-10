@@ -33,7 +33,9 @@
     {% for each in m1%}
       <div style="width: 50%; margin-left: 25%; margin-top: 20px" class="card">
   <div class="card-body" style="background: #0c0409; color: #bf3f8f">
-      {{each}}
+      {{each.upper()}}
+      <hr>
+      {{m1[each]}}
   </div>
 </div>
     {% endfor%}

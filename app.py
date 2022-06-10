@@ -25,10 +25,13 @@ class Review(db.Model):
 
 db.create_all()
 
-m1 = []
+m1 = dict()
 all_comments = Review.query.all()
 for each in all_comments:
-    m1.append(each)
+    m1[each.film] = each.comments
+
+
+
 
 
 
@@ -99,9 +102,14 @@ else:
 def home(popular_dict=popular_dict, rating_dict=rating_dict):
     return render_template('home.html', popular_dict=popular_dict, rating_dict=rating_dict)
 
-
+m1 = dict()
 @app.route('/now_showing', methods=['POST', 'GET'])
 def review():
+    db.create_all()
+    all_comments = Review.query.all()
+    for each in all_comments:
+        m1[each.film] = each.comments
+
     if request.method == "POST":
         comments = request.form['comments']
         film = request.form['film']
