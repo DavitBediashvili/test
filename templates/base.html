@@ -16,6 +16,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
+        {% if 'username' not in session %}
+          <li class="nav-item">
+            <a class="nav-link" href="/profile" style="color:#bf3f8f; text-align: center">profile</a>
+          </li>
+        {% endif %}
         <li class="nav-item" >
           <a class="nav-link active" aria-current="page" href="/" style="color:#bf3f8f; text-align: center">Home</a>
         </li>
@@ -28,11 +33,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/search_actor" style="color:#bf3f8f; text-align: center">Search Actor</a>
         </li>
-        {% if 'username' not in session %}
-          <li class="nav-item">
-            <a class="nav-link" href="/profile" style="color:#bf3f8f; text-align: center">profile</a>
-          </li>
-        {% endif %}
+
 
         {% if 'username' in session  %}
           <li class="nav-item" style="margin-left: 1090px">

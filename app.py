@@ -90,21 +90,24 @@ def home():
 m1 = dict()
 @app.route('/Review', methods=['POST', 'GET'])
 def review():
+
     db.create_all()
     all_comments = Review.query.all()
     for each in all_comments:
         m1[each.film] = each.comments
 
-    if request.method == "POST":
-        comments = request.form['comments']
-        film = request.form['film']
-        f1 = Review(film=film, comments=comments)
-        if comments == '' or film == '':
-            flash("ჯერ დაწერე")
-        else:
-            db.session.add(f1)
-            db.session.commit()
-            flash("It is what it is")
+        if request.method == "POST":
+            comments = request.form['comments']
+            film = request.form['film']
+            f1 = Review(film=film, comments=comments)
+            if comments == '' or film == '':
+                flash("ჯერ დაწერე")
+            else:
+                db.session.add(f1)
+                db.session.commit()
+                flash("It is what it is")
+
+
     return render_template('now_showing.html', m1 = m1)
 
 info = ''
@@ -114,10 +117,6 @@ gallery_dict = dict()
 def Gallery():
     if request.method=='POST':
         info = request.form['info']
-    for path in os.listdir("static/uploads"):
-        full_path = os.path.join("static/uploads", path)
-        if os.path.isfile(full_path):
-            new_fullpath = full_path.split("\\", 1)
     if request.method == 'POST':
         if 'file' not in request.files:
             flash('No file part')
