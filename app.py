@@ -50,7 +50,8 @@ class Galler(db.Model):
 
 
 db.create_all()
-
+popular_dict = dict()
+rating_dict = dict()
 #Home
 url1 = "https://www.rottentomatoes.com/browse/movies_at_home/critics:certified_fresh~sort:popular?page=1"
 
@@ -248,7 +249,7 @@ def search_actor():
     return render_template('search_actor.html', actor_name=actor_name, img_link=img_link, best_movie=best_movie, birth_day=birth_day, bio=bio, img_dict=img_dict, rate_dict=rate_dict, bio_dict=bio_dict)
 
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 @app.route('/profile', methods=['POST', 'GET'])
 def profile():
     if request.method == "POST":
@@ -256,7 +257,7 @@ def profile():
         username = request.form['username']
         session['username'] = username
 
-        return redirect(url_for('review'))
+        return redirect(url_for('home'))
     else:
         return render_template('profile.html')
 
