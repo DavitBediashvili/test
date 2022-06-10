@@ -254,9 +254,12 @@ def profile():
     if request.method == "POST":
 
         username = request.form['username']
-        session['username'] = username
 
-        return redirect(url_for('home'))
+        if username == '':
+            return render_template('profile.html')
+        else:
+            session['username'] = username
+            return redirect(url_for('home'))
     else:
         return render_template('profile.html')
 
