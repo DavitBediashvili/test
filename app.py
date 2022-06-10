@@ -98,9 +98,12 @@ else:
         swoop_dict[names_list[i]] = img_list[i]
 
 
+
+
 @app.route('/')
 def home(popular_dict=popular_dict, rating_dict=rating_dict):
     return render_template('home.html', popular_dict=popular_dict, rating_dict=rating_dict)
+
 
 m1 = dict()
 @app.route('/now_showing', methods=['POST', 'GET'])
