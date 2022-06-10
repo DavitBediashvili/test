@@ -50,8 +50,7 @@ class Galler(db.Model):
 
 
 db.create_all()
-popular_dict = dict()
-rating_dict = dict()
+
 #Home
 url1 = "https://www.rottentomatoes.com/browse/movies_at_home/critics:certified_fresh~sort:popular?page=1"
 
