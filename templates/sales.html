@@ -1,21 +1,27 @@
 {% extends 'base.html' %}
 {%  block content  %}
 
-{% for each in swoop_dict %}
-<div class="card mb-3" style="width:60%; margin-left: 20%">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="d" class="img-fluid rounded-start" alt="...">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">{{each}}</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
+<form method=post enctype=multipart/form-data style="margin-left: 31%">
+      <br>
+      <input type=file name=file style="background: rgba(12,4,9,0.45)">
+      <input type=text style="color: #bf3f8f; background: rgba(12,4,9,0.45)" name=info placeholder="Comment">
+      <input type=submit value=Upload >
+</form>
+<br>
+
+<!--<form method="post" style="width:60%; margin-left: 20%">-->
+<!--    <input type="text" name="info" style="background: #bf3f8f; color: #0c0409">-->
+<!--    <input type=submit value=Upload >-->
+<!--</form>-->
+
+
+{% for name in gallery_dict %}
+<div class="card mb-4", style="width: 70%; margin-left: 15%">
+  <img src="{{ url_for('static', filename='uploads/' + name) }}" >
+  <div class="card-body">
+    <p class="card-text">{{gallery_dict[name]}}</p>
   </div>
 </div>
 {% endfor %}
 
-    {%  endblock  %}
+{%  endblock  %}

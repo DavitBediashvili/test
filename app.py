@@ -1,15 +1,21 @@
 from flask import Flask, redirect, url_for, render_template, flash, request, session, abort
 import json
+import os
+from werkzeug.utils import secure_filename
 import requests
 h = {"Accept-Language": "en-US"}
 from bs4 import BeautifulSoup
 from flask_sqlalchemy import SQLAlchemy
 
+UPLOAD_FOLDER = 'static/uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = 'zdarova'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Umagresi_Reviewebi.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 
 db = SQLAlchemy(app)
 
@@ -34,7 +40,16 @@ for each in all_comments:
 
 
 
+class Galler(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(250), nullable=False)
+    name = db.Column(db.String(30), nullable=False)
 
+    def str(self):
+        return f'{self.film}, {self.comments}'
+
+
+db.create_all()
 
 #Home
 url1 = "https://www.rottentomatoes.com/browse/movies_at_home/critics:certified_fresh~sort:popular?page=1"
@@ -62,51 +77,18 @@ for each in sub_soup2:
     rating_dict[title] = f"Audience Rating: {user} and Critics Rating: {critic}"
 
 
-#sales
-url = 'https://www.swoop.ge/events'
-movies_dict = dict()
-r = requests.get(url)
-soup = BeautifulSoup(r.text, 'html.parser')
-soup_sub = soup.find_all('div', {'class': 'movies-deal'})
-
-names_list = list()
-for each in soup_sub:
-
-    soup_sub1 = each.find('div', {'class': 'movie-name'})
-    title = soup_sub1.find('p')
-    if title.text == 'კინოთეატრი ამირანი':
-        break
-    else:
-        names_list.append(title.text)
-
-
-img_list = list()
-for each in soup_sub:
-    soup_sub_img = each.find('div', {'class': 'movie-main-img'})
-    soup_sub_img_link = soup_sub_img.find('img')
-    if "/Images/NewDesigneImg/" in soup_sub_img_link["src"]:
-        break
-    else:
-        img_list.append(soup_sub_img_link["src"])
-
-
-swoop_dict = dict()
-if names_list is None:
-    swoop_dict["None"] = "None"
-else:
-    for i in range(len(names_list)):
-        swoop_dict[names_list[i]] = img_list[i]
-
-
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route('/')
-def home(popular_dict=popular_dict, rating_dict=rating_dict):
+def home():
     return render_template('home.html', popular_dict=popular_dict, rating_dict=rating_dict)
 
 
 m1 = dict()
-@app.route('/now_showing', methods=['POST', 'GET'])
+@app.route('/Review', methods=['POST', 'GET'])
 def review():
     db.create_all()
     all_comments = Review.query.all()
@@ -125,10 +107,36 @@ def review():
             flash("It is what it is")
     return render_template('now_showing.html', m1 = m1)
 
+info = ''
+gallery_dict = dict()
 
-@app.route('/sales')
-def sales(swoop_dict=swoop_dict):
-    return render_template('sales.html', swoop_dict=swoop_dict)
+@app.route('/Gallery', methods=['GET', 'POST'])
+def Gallery():
+    if request.method=='POST':
+        info = request.form['info']
+    for path in os.listdir("static/uploads"):
+        full_path = os.path.join("static/uploads", path)
+        if os.path.isfile(full_path):
+            new_fullpath = full_path.split("\\", 1)
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            G1 = Galler(text=info, name=filename)
+            db.session.add(G1)
+            db.session.commit()
+
+    all_gal = Galler.query.all()
+    for each1 in all_gal:
+        gallery_dict[each1.name] = each1.text
+    return render_template('sales.html', gallery_dict=gallery_dict)
 
 
 
@@ -249,8 +257,6 @@ def profile():
     if request.method == "POST":
 
         username = request.form['username']
-        Email = request.form['Email']
-        password = request.form['password']
         session['username'] = username
 
         return redirect(url_for('review'))
