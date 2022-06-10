@@ -82,7 +82,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@app.route('/')
+@app.route('/home')
 def home():
     return render_template('home.html', popular_dict=popular_dict, rating_dict=rating_dict)
 
@@ -90,23 +90,21 @@ def home():
 m1 = dict()
 @app.route('/Review', methods=['POST', 'GET'])
 def review():
-
     db.create_all()
     all_comments = Review.query.all()
+
     for each in all_comments:
         m1[each.film] = each.comments
-
-        if request.method == "POST":
-            comments = request.form['comments']
-            film = request.form['film']
-            f1 = Review(film=film, comments=comments)
-            if comments == '' or film == '':
-                flash("ჯერ დაწერე")
-            else:
-                db.session.add(f1)
-                db.session.commit()
-                flash("It is what it is")
-
+    if request.method == "POST":
+        comments = request.form['comments']
+        film = request.form['film']
+        f1 = Review(film=film, comments=comments)
+        if comments == '' or film == '':
+            flash("ჯერ დაწერე")
+        else:
+            db.session.add(f1)
+            db.session.commit()
+            flash("It is what it is")
 
     return render_template('now_showing.html', m1 = m1)
 
@@ -250,7 +248,7 @@ def search_actor():
     return render_template('search_actor.html', actor_name=actor_name, img_link=img_link, best_movie=best_movie, birth_day=birth_day, bio=bio, img_dict=img_dict, rate_dict=rate_dict, bio_dict=bio_dict)
 
 
-
+@app.route('/')
 @app.route('/profile', methods=['POST', 'GET'])
 def profile():
     if request.method == "POST":
@@ -267,7 +265,7 @@ def profile():
 def logout():
     session.pop('username', None)
     if request.method == "GET":
-        return redirect(url_for('home'))
+        return redirect(url_for('profile'))
 
 
 app.run(debug=True)

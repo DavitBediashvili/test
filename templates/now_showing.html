@@ -7,7 +7,6 @@
 <div class="card" style="width:50%; margin-left: 25%; background: #0c0409; color: #bf3f8f">
   <div class="card-body">
         <h1 style="text-align: center">Heyo {{ session['username']}} add some Films Review </h1>
-    <!--<h3 style="margin-left: 20px">heyo {{ session['username']}} add comment  </h3>-->
   </div>
 </div>
     <p></p>
@@ -24,7 +23,7 @@
 
     {% with messages = get_flashed_messages()%}
       {% for msg in messages%}
-        <p style="margin-left: 20px">{{msg}}</p>
+        <p style="width: 10%; margin-left: 45%; margin-top: 20px; background: #0c0409; color: #bf3f8f; text-align: center">{{msg}}</p>
       {% endfor %}
     {% endwith %}
   <button style="width: 10%; margin-left: 45%; margin-top: 20px; background: #0c0409; color: #bf3f8f" type="submit" class="btn btn-primary">Add Comment</button>

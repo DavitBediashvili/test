@@ -18,11 +18,12 @@
       <ul class="navbar-nav">
         {% if 'username' not in session %}
           <li class="nav-item">
-            <a class="nav-link" href="/profile" style="color:#bf3f8f; text-align: center">profile</a>
+            <a class="nav-link" href="/" style="color:#bf3f8f; text-align: center">Hello!</a>
           </li>
         {% endif %}
+        {% if 'username' in session %}
         <li class="nav-item" >
-          <a class="nav-link active" aria-current="page" href="/" style="color:#bf3f8f; text-align: center">Home</a>
+          <a class="nav-link active" aria-current="page" href="/home" style="color:#bf3f8f; text-align: center">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/Review" style="color:#bf3f8f; text-align: center">Review</a>
@@ -33,6 +34,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/search_actor" style="color:#bf3f8f; text-align: center">Search Actor</a>
         </li>
+        {% endif %}
 
 
         {% if 'username' in session  %}
