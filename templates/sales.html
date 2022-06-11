@@ -16,7 +16,7 @@
 
 
 {% for name in gallery_dict %}
-<div class="card mb-4", style="width: 70%; margin-left: 15%">
+<div class="card mb-4", style="width: 60%; margin-left: 20%">
   <img src="{{ url_for('static', filename='uploads/' + name) }}" >
   <div class="card-body">
     <p class="card-text">{{gallery_dict[name]}}</p>

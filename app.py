@@ -106,6 +106,7 @@ def review():
             db.session.commit()
             flash("It is what it is")
 
+
     return render_template('now_showing.html', m1 = m1)
 
 info = ''
